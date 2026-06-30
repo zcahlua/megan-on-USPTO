@@ -15,7 +15,7 @@ from urllib3.util.retry import Retry
 logger = logging.getLogger(__name__)
 
 
-def unzip_and_clean(archive_dir: str, file_name: str):
+def unzip_and_clean(archive_dir: str, file_name: str, delete_archive_after_extract: bool = True):
     archive_path = os.path.join(archive_dir, file_name)
 
     if file_name.endswith('.zip'):
@@ -29,7 +29,8 @@ def unzip_and_clean(archive_dir: str, file_name: str):
     else:
         raise ValueError(f'Unsupported archive format for file: {archive_path}')
 
-    os.remove(archive_path)
+    if delete_archive_after_extract:
+        os.remove(archive_path)
 
 
 def download_url(url, save_path, chunk_size=1024 * 1024, timeout=60, retries=3):

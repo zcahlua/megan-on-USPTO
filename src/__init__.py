@@ -8,9 +8,13 @@ import numpy as np
 
 from src.utils import configure_logger
 
-DATA_DIR = os.environ.get("DATA_DIR", './data')
-LOGS_DIR = os.environ.get("LOGS_DIR", './logs')
-CONFIGS_DIR = os.environ.get("CONFIG_DIR", os.path.join(os.environ['PROJECT_ROOT'], "configs"))
+PROJECT_ROOT = os.environ.get("PROJECT_ROOT", os.getcwd())
+DATA_DIR = os.environ.get("DATA_DIR", os.path.join(PROJECT_ROOT, "data"))
+LOGS_DIR = os.environ.get("LOGS_DIR", os.path.join(PROJECT_ROOT, "logs"))
+CONFIGS_DIR = os.environ.get(
+    "CONFIG_DIR",
+    os.environ.get("CONFIGS_DIR", os.path.join(PROJECT_ROOT, "configs"))
+)
 N_JOBS = int(os.environ.get("N_JOBS", -1))
 
 if N_JOBS == -1:

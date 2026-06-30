@@ -76,8 +76,8 @@ Training takes from about 10 hours for USPTO-50k to about 60 hours for USPTO-FUL
 ```
 python bin/eval.py models/uspto_50k --beam-size 50 --show-every 100
 python bin/eval.py models/uspto_50k_rt --beam-size 50 --show-every 100
-python bin/eval.py models/uspto_mit_mix --beam-size 10 --show-every 1000
-python bin/eval.py models/uspto_mit_sep --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_mix --dataset-key uspto_mit --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_sep --dataset-key uspto_mit --beam-size 10 --show-every 1000
 python bin/eval.py models/uspto_full --beam-size 50 --show-every 1000
 ```
 

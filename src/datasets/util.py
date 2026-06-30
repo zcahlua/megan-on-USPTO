@@ -37,12 +37,9 @@ def download_url(url, save_path, chunk_size=1024 * 1024, timeout=60, retries=3):
     """Download a URL with retries and clear errors for manual fallback."""
     os.makedirs(os.path.dirname(save_path), exist_ok=True)
     session = requests.Session()
-    retry_kwargs = dict(total=retries, connect=retries, read=retries, status=retries,
-                        backoff_factor=1, status_forcelist=(429, 500, 502, 503, 504))
-    try:
-        retry = Retry(**retry_kwargs, allowed_methods=("GET",))
-    except TypeError:
-        retry = Retry(**retry_kwargs, method_whitelist=("GET",))
+    retry = Retry(total=retries, connect=retries, read=retries, status=retries,
+                  backoff_factor=1, status_forcelist=(429, 500, 502, 503, 504),
+                  allowed_methods=("GET",))
     session.mount('http://', HTTPAdapter(max_retries=retry))
     session.mount('https://', HTTPAdapter(max_retries=retry))
     tmp_path = save_path + '.part'

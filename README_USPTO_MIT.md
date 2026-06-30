@@ -17,7 +17,7 @@ Do not report a USPTO-MIT retrosynthesis run from these configs unless you expli
 - Original dataset repository: `https://github.com/wengong-jin/nips17-rexgen/tree/master/USPTO`
 
 `src/datasets/uspto_mit.py` downloads this zip file into `data/uspto_mit/feat/data.zip`, extracts it under `data/uspto_mit/feat/data/`, and preprocesses the split text files into MEGAN's tabular files.
-The downloader retries transient HTTP failures, reuses existing extracted split files, and reports a manual fallback path if GitHub is unavailable.
+The downloader retries transient HTTP failures and reports a manual fallback path if GitHub is unavailable.
 
 ## Environment setup
 
@@ -82,8 +82,8 @@ python bin/acquire.py uspto_mit
 N_JOBS=${N_JOBS:-4} python bin/featurize.py uspto_mit megan_for_8_dfs_cano
 python bin/train.py uspto_mit models/uspto_mit_mix
 python bin/train.py uspto_mit_sep models/uspto_mit_sep
-python bin/eval.py models/uspto_mit_mix --dataset-key uspto_mit --beam-size 10 --show-every 1000
-python bin/eval.py models/uspto_mit_sep --dataset-key uspto_mit --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_mix --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_sep --beam-size 10 --show-every 1000
 ```
 
 ## Expected output files
@@ -136,4 +136,4 @@ If GitHub downloads fail, manually download:
 https://github.com/wengong-jin/nips17-rexgen/raw/master/USPTO/data.zip
 ```
 
-and place it at the path shown in the error message, typically `data/uspto_mit/feat/data.zip`, then rerun acquisition. Acquisition preserves that archive after extraction, and reruns skip download/unzip if `train.txt`, `valid.txt`, and `test.txt` already exist under `data/uspto_mit/feat/data/`.
+and place it at the path shown in the error message, typically `data/uspto_mit/feat/data.zip`, then rerun acquisition.

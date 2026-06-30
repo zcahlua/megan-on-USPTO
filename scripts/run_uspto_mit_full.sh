@@ -30,10 +30,10 @@ test -s models/uspto_mit_mix/model_best.pt || { echo "Missing mixed model_best.p
 python bin/train.py uspto_mit_sep models/uspto_mit_sep 2>&1 | tee "$LOG_DIR/train_sep.log"
 test -s models/uspto_mit_sep/model_best.pt || { echo "Missing separated model_best.pt" >&2; exit 1; }
 
-python bin/eval.py models/uspto_mit_mix --dataset-key uspto_mit --beam-size 10 --show-every 1000 2>&1 | tee "$LOG_DIR/eval_mix.log"
+python bin/eval.py models/uspto_mit_mix --beam-size 10 --show-every 1000 2>&1 | tee "$LOG_DIR/eval_mix.log"
 compgen -G "models/uspto_mit_mix/eval_*.txt" >/dev/null || { echo "Missing mixed eval output" >&2; exit 1; }
 compgen -G "models/uspto_mit_mix/pred_*.txt" >/dev/null || { echo "Missing mixed predictions" >&2; exit 1; }
-python bin/eval.py models/uspto_mit_sep --dataset-key uspto_mit --beam-size 10 --show-every 1000 2>&1 | tee "$LOG_DIR/eval_sep.log"
+python bin/eval.py models/uspto_mit_sep --beam-size 10 --show-every 1000 2>&1 | tee "$LOG_DIR/eval_sep.log"
 compgen -G "models/uspto_mit_sep/eval_*.txt" >/dev/null || { echo "Missing separated eval output" >&2; exit 1; }
 compgen -G "models/uspto_mit_sep/pred_*.txt" >/dev/null || { echo "Missing separated predictions" >&2; exit 1; }
 

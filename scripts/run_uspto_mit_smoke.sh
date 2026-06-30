@@ -80,7 +80,7 @@ python bin/train.py uspto_mit "$MODEL_DIR" --max_n_epochs 1 --train_samples_per_
 test -s "$MODEL_DIR/model.pt" || { echo "Missing smoke model checkpoint" >&2; exit 1; }
 if [ ! -s "$MODEL_DIR/model_best.pt" ]; then cp "$MODEL_DIR/model.pt" "$MODEL_DIR/model_best.pt"; fi
 
-python bin/eval.py "$MODEL_DIR" --dataset-key uspto_mit --beam-size 1 --beam-batch-size 1 --show-every 1 --split-key valid --max-gen-steps 2 2>&1 | tee "$LOG_DIR/eval.log"
+python bin/eval.py "$MODEL_DIR" --beam-size 1 --beam-batch-size 1 --show-every 1 --split-key valid --max-gen-steps 2 2>&1 | tee "$LOG_DIR/eval.log"
 compgen -G "$MODEL_DIR/eval_valid_1_2*.txt" >/dev/null || { echo "Missing eval output" >&2; exit 1; }
 compgen -G "$MODEL_DIR/pred_valid_1_2*.txt" >/dev/null || { echo "Missing prediction output" >&2; exit 1; }
 

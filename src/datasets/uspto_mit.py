@@ -31,10 +31,29 @@ class UsptoMit(Dataset):
 
     def _download(self):
         url = "https://github.com/wengong-jin/nips17-rexgen/raw/master/USPTO/data.zip"
-        logger.info(f"Downloading raw data from {url}")
         archive_file = 'data.zip'
-        download_url(url, os.path.join(self.feat_dir, archive_file))
-        unzip_and_clean(self.feat_dir, archive_file)
+        archive_path = os.path.join(self.feat_dir, archive_file)
+        split_paths = [os.path.join(self.feat_dir, f'data/{split_key}.txt')
+                       for split_key in ('train', 'valid', 'test')]
+
+        if all(os.path.exists(split_path) for split_path in split_paths):
+            logger.info(f"USPTO-MIT split files already exist in {os.path.join(self.feat_dir, 'data')}; "
+                        f"skipping download and unzip")
+            return
+
+        if os.path.exists(archive_path) and os.path.getsize(archive_path) > 0:
+            logger.info(f"Using existing USPTO-MIT archive at {archive_path}")
+        else:
+            logger.info(f"Downloading raw data from {url}")
+            try:
+                download_url(url, archive_path)
+            except RuntimeError as exc:
+                raise RuntimeError(
+                    f"{exc} Manual fallback: download {url} and place it at {archive_path}, then rerun "
+                    f"'python bin/acquire.py uspto_mit'."
+                )
+
+        unzip_and_clean(self.feat_dir, archive_file, delete_archive_after_extract=False)
         logger.info(f"Files downloaded and unpacked to {self.feat_dir}")
 
     def _preprocess(self):

@@ -76,8 +76,8 @@ Training takes from about 10 hours for USPTO-50k to about 60 hours for USPTO-FUL
 ```
 python bin/eval.py models/uspto_50k --beam-size 50 --show-every 100
 python bin/eval.py models/uspto_50k_rt --beam-size 50 --show-every 100
-python bin/eval.py models/uspto_mit_mix --beam-size 10 --show-every 1000
-python bin/eval.py models/uspto_mit_sep --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_mix --dataset-key uspto_mit --beam-size 10 --show-every 1000
+python bin/eval.py models/uspto_mit_sep --dataset-key uspto_mit --beam-size 10 --show-every 1000
 python bin/eval.py models/uspto_full --beam-size 50 --show-every 1000
 ```
 
@@ -89,3 +89,8 @@ Evaluation produces two files: `eval_*.txt` has calculated Top K values, `pred_*
 ### Packed data and models
 
 We include packed pre-processed data, as well as weights of the model trained on USPTO-50k for two variants (reaction type unknown/reaction type given) as a GitHub Release with version number v1.1 in this repo. To use data and pretrained models, unpack the "megan_data.zip" archive in the root directory of the project.
+
+
+### USPTO-MIT / USPTO-480K
+
+See [`README_USPTO_MIT.md`](README_USPTO_MIT.md) for a reproducible USPTO-MIT / USPTO-480K smoke test and full pipeline.

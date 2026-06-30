@@ -37,7 +37,7 @@ from src.feat.megan_graph import MeganTrainingSamplesFeaturizer, get_actions_voc
 logger = logging.getLogger(__name__)
 
 
-@gin.configurable(blacklist=['save_path'])
+@gin.configurable(denylist=['save_path'])
 def train_megan(
         save_path: str,
         featurizer_key: str,

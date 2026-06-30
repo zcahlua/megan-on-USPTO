@@ -89,3 +89,8 @@ Evaluation produces two files: `eval_*.txt` has calculated Top K values, `pred_*
 ### Packed data and models
 
 We include packed pre-processed data, as well as weights of the model trained on USPTO-50k for two variants (reaction type unknown/reaction type given) as a GitHub Release with version number v1.1 in this repo. To use data and pretrained models, unpack the "megan_data.zip" archive in the root directory of the project.
+
+
+### USPTO-MIT / USPTO-480K
+
+See [`README_USPTO_MIT.md`](README_USPTO_MIT.md) for a reproducible USPTO-MIT / USPTO-480K smoke test and full pipeline.
